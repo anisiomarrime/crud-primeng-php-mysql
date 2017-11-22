@@ -1,0 +1,65 @@
+<p-growl [(value)]="mensagens"></p-growl>
+
+<div class="ui-g">
+  <div class="ui-g-12">
+    <h1>Usuários</h1>
+  </div>
+</div>
+
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+    <button pButton type="button" label="Novo" (click)="mostraDialog(null)" icon="fa-plus"></button>
+  </div>
+    
+  <div class="ui-toolbar-group-right">
+    <button pButton type="button" (click)="consultar()" icon="fa-refresh" class="ui-button-success"></button>
+  </div>
+</p-toolbar>
+
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-dataTable [value]="usuarios" editable="true" emptyMessage="Nenhum usuário cadastrado." (onEditComplete)="editarPelaTabela($event)">
+      <p-column field="id" header="Código" [style]="{'width':'100px'}"></p-column>
+      <p-column editable="true" field="nome" header="Nome" styleClass="text-center"></p-column>
+      <p-column editable="true" field="email" header="E-mail" styleClass="text-center"></p-column>
+      <p-column header="Criado em" [style]="{'text-align':'center','width':'300px'}">
+        <ng-template pTemplate="body" let-user="rowData">
+          {{ user.created_at | date:'dd - MMMM yyyy' }}
+        </ng-template>
+      </p-column>
+      <p-column [style]="{'width':'100px'}">
+        <ng-template pTemplate="body" let-user="rowData">
+          <button pButton type="button" icon="fa-edit" (click)="mostraDialog(user)" class="ui-button-warning"></button>
+          <button pButton type="button" icon="fa-trash" (click)="confirmarRemocao(user)" class="ui-button-danger"></button>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </div>
+</div>
+
+<p-confirmDialog header="Remover Usuário" acceptLabel="Sim" rejectLabel="Não" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<p-dialog header="{{ usuario.id > 0 ? 'Editar' : 'Novo' }} Usuário" [(visible)]="isDialogVisible" modal="modal" width="500" [responsive]="true">
+  <form #frm="ngForm" (ngSubmit)="salvar()" autocomplete="off">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input pInputText name="nome" [required]="true" minlength="3" [(ngModel)]="usuario.nome"/>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>E-mail</label>
+        <input pInputText name="email" [required]="true" minlength="6" [(ngModel)]="usuario.email"/>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Senha</label>
+        <input pPassword type="password" name="senha" [required]="true" minlength="6" [(ngModel)]="usuario.senha"/>
+      </div>
+
+      <div class="ui-g-7">
+        <button pButton type="submit" label="Salvar" [disabled]="frm.invalid"></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

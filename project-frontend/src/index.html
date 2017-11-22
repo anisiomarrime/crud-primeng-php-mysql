@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Locadora Veiculos</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <style>
+    body{
+      margin: 0!important;
+    }
+    .ui-menu-list{
+      float: right!important;
+      padding-right: 30px!important;
+    }
+    .ui-menu, .ui-menu .ui-menu-child{
+      background: #E0E0E0!important;
+      border: none!important;
+      color:#fff!important;
+    }
+    div.block{
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: #fff;
+      display: none
+    }
+    div.block h2{
+      color: #000;
+      text-align: center;
+      margin-top: 50%;
+    }
+    @media(max-width: 700px){
+      div.block{
+        display: block
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <div class="block">
+    <h2>Disponível apenas em Web Desktop</h2>
+  </div>
+  <app-root></app-root>
+</body>
+</html>
